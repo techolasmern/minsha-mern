@@ -51,6 +51,7 @@ const userLogin = async (request, response) => {
         if (!isMatched) {
             return response.status(401).send({ message: "Password is incorrect" });
         }
+        request.session.user = existing_user;
         return response.status(200).send({ message: "User logged in successfully" });
     } catch (err) {
         return response.status(500).send({ message: err.message || "Internal server error" });
@@ -61,4 +62,8 @@ const get_users = (request, response) => {
     return response.status(200).send({ users });
 }
 
-module.exports = { userRegistration, get_users, userLogin };
+const getUserSession = (request, response) => {
+    return response.status(200).send({ user: request.session.user });
+}
+
+module.exports = { userRegistration, get_users, userLogin, getUserSession };
