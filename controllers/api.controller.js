@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt");
+const sendEmail = require("../services/nodemailer.service");
 
 const createPasswordHash = async (request, response) => {
     try {
@@ -27,7 +28,20 @@ const comparePassword = async (request, response) => {
     }
 }
 
-module.exports = { createPasswordHash, comparePassword };
+const mailer = async (request, response) => {
+    try {
+        const { to } = request.body;
+        if (!to) {
+            return response.status(400).send({ message: "receiver email is required" });
+        }
+        const res = await sendEmail(to);
+        return response.status(200).send({ message: "email sent successfully", res });
+    } catch (err) {
+        return response.status(500).send({ message: err.message || "Internal server error" });
+    }
+}
+
+module.exports = { createPasswordHash, comparePassword, mailer };
 
 // 500, 200, 404, 201, 400, 409, 401, 403, 503, 425
 // 500 -> internal server error

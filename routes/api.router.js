@@ -8,5 +8,6 @@ apiRouter.post("/password/create-hash", apiController.createPasswordHash);
 apiRouter.post("/password/compare", apiController.comparePassword);
 
 apiRouter.get("/users", authController.get_users);
+apiRouter.post("/email/send", apiController.mailer);
 
 module.exports = apiRouter;
