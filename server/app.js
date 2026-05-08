@@ -3,8 +3,12 @@ const apiRouter = require("./routes/api.router");
 const authRouter = require("./routes/auth.router");
 const session = require("express-session");
 const otpRouter = require("./routes/otp.router");
+const cors = require("cors");
 
 const app = express();
+app.use(cors({
+    origin: "http://localhost:5173",
+}));
 app.use(session({
     secret: "sdkjhfiuwreflksdnlf",
     resave: false,

@@ -25,6 +25,7 @@ const verify = async (request, response) => {
             return response.status(400).send({ message: "Email and otp are required" });
         }
         const session = request.session;
+        console.log(session);
         if (!session?.[email]) {
             return response.status(400).send({ message: "Expired otp" });
         }
