@@ -12,7 +12,7 @@ const send = async (request, response) => {
         }
         const cooldown_time = Math.floor(Date.now() / 1000) + 60;
         request.session[email] = { otp: mailResponse.otp, cooldown_time };
-        return response.status(200).send({ message: "otp sent successfully" });
+        return response.status(200).send({ message: "otp sent successfully", otp: mailResponse.otp });
     } catch (err) {
         return response.status(500).send({ error: err.message || "Internal server error"});
     }

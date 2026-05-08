@@ -8,7 +8,9 @@ const cors = require("cors");
 const app = express();
 app.use(cors({
     origin: "http://localhost:5173",
+    credentials: true,
 }));
+app.use(express.json());
 app.use(session({
     secret: "sdkjhfiuwreflksdnlf",
     resave: false,
@@ -17,7 +19,7 @@ app.use(session({
         maxAge: 1000 * 60 * 5 // 5 min
     }
 }));
-app.use(express.json());
+
 
 app.use("/api", apiRouter);
 app.use("/auth", authRouter);
